@@ -40,6 +40,6 @@ app.register_blueprint(index_page, )
 if __name__ == '__main__':
     api = Api()
 
-    # window = webview.create_window('API example', 'http://127.0.0.1:5173', js_api=api, )
-    window = webview.create_window('pywebview + vue3', app, js_api=api, )
+    window = webview.create_window('API example', 'http://127.0.0.1:5173', js_api=api, )
+    # window = webview.create_window('pywebview + vue3', app, js_api=api, )
     webview.start(debug=False)
