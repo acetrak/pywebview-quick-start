@@ -1,72 +1,56 @@
+## Developing Desktop Applications with pywebview + vite
 
-## pywebview  + vite + vue3 开发桌面应用
+# Directory Structure
 
-# 目录结构
+-app  vite application (frontend)
 
--app  vite应用（前端）
+-main.py  application entry file
 
--script  python脚本
+# Development Stage
 
--main.py  应用入口文件
-
-# 开发阶段
-
-1. 进入/app
+1. Enter /app directory
 
 `pnpm i`
 
 `pnpm run dev`
 
-2. 设置`main.py`中
+2. Configure `main.py`
 
 ```python
-
 if __name__ == '__main__':
     api = Api()
 
-    window = webview.create_window('API example', 'http://127.0.0.1:5173', js_api=api, )
-    # window = webview.create_window('pywebview + vue3', app, js_api=api, )
+    window = webview.create_window('pywebview', 'http://localhost:5173', js_api=api, )
     webview.start(debug=True)
-
 ```
 
-3. 启动主程序
+3. Launch the main program
 
-# 打包应用
-1. 进入/app
+Run `main.py`
+
+# Packaging the Application
+1. Enter /app directory
 
 `pnpm run build`
 
-
-2. 设置`main.py`中
-
+2. Configure `main.py`
 
 ```python
 if __name__ == '__main__':
     api = Api()
 
-    # window = webview.create_window('API example', 'http://127.0.0.1:5173', js_api=api, )
-    window = webview.create_window('pywebview + vue3', app, js_api=api, )
+    window = webview.create_window('pywebview + vue3', server, js_api=api, )
     webview.start(debug=False)
-
 ```
 
-3.使用`auto-py-to-exe`打包
+3. Use `auto-py-to-exe` for packaging
 
 ```bash
 pip install auto-py-to-exe
-# 启动工具
+# Launch the tool
 auto-py-to-exe
 ```
 
-需要注意的是要在附加文件一块设置中将flask涉及到的模板, 静态文件, 还有其他诸如sqlite数据库文件都添加进去
+Select the entry point `main.py`, and add the gui directory generated from the vite build
 
-
-
-
-
-
- 
-参考 ：
-1. https://zhuanlan.zhihu.com/p/101544546
-2. https://juejin.cn/post/7113107801785761799
+![auto-py-to-exe](./auto-py-to-exe.png)

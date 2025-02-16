@@ -1,10 +1,8 @@
 import webview
-from script.csdn import csdn
-from flask import Flask
-from views import index_page
+from flask import Flask,render_template
 
 static_folder = 'gui/static'
-
+template_folder = 'gui'
 
 class Api:
 
@@ -14,10 +12,10 @@ class Api:
     def handle_url(self, url):
         print(url)
 
-        html = csdn(url)
+
         response = {
             'status': 'ok',
-            'html': html
+            'html': 'div'
         }
         return response
 
@@ -32,14 +30,14 @@ def evaluate_js(window):
 
     # print(result)
 
+server = Flask(__name__, static_folder=static_folder, template_folder=template_folder)
 
-app = Flask(__name__, static_folder=static_folder)
-
-app.register_blueprint(index_page, )
+@server.route("/")
+def index():
+    return render_template('index.html')
 
 if __name__ == '__main__':
     api = Api()
-
-    window = webview.create_window('API example', 'http://127.0.0.1:5173', js_api=api, )
-    # window = webview.create_window('pywebview + vue3', app, js_api=api, )
-    webview.start(debug=False)
+    # window = webview.create_window('pywebview', 'http://localhost:5173', js_api=api, )
+    window = webview.create_window('pywebview', server, js_api=api, )
+    webview.start(debug=True)
